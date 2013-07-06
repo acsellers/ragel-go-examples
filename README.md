@@ -10,7 +10,9 @@ I'm not associated with the people behind Ragel in any form.
 
 All of the current code is 100% what I wrote excepting the Atoi, 
 which was from an official ragel example, but was modified to be 
-current Go style.
+current Go style. The code I use for ragel is 
+
+    ragel -Z -G2 -o <name>.go <name>.rl
 
 * Atoi - Convert an integer in a string to an int64
 * Atof - Convert a float in a string to a float64
