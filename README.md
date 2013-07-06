@@ -17,6 +17,7 @@ current Go style. The code I use for ragel is
 * Atoi - Convert an integer in a string to an int64
 * Atof - Convert a float in a string to a float64
 * HexDecode - Convert a hex string into an int64
+* Comma - Separate a string into values like a csv
 
 ## Licensing
 
