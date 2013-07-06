@@ -10,7 +10,8 @@ I'm not associated with the people behind Ragel in any form.
 
 All of the current code is 100% what I wrote excepting the Atoi, 
 which was from an official ragel example, but was modified to be 
-current Go style. The code I use for ragel is 
+current Go style. I'm not sure how many examples I'm going to 
+write, but current goal is 50. The code I use for ragel is 
 
     ragel -Z -G2 -o <name>.go <name>.rl
 
