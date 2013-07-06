@@ -4,12 +4,12 @@ import (
   "fmt"
 )
 
-func decode(c uint8) int64 {
+func decode(c uint8) uint64 {
   switch c {
   case 'a', 'b', 'c', 'd', 'e', 'f':
-    return int64(c - 'a' + 10)
+    return uint64(c - 'a' + 10)
   case 'A', 'B', 'C', 'D', 'E', 'F':
-    return int64(c - 'A' + 10)
+    return uint64(c - 'A' + 10)
   }
   return 0
 }
@@ -18,13 +18,13 @@ func decode(c uint8) int64 {
   machine hexd;
   write data;
 }%%
-func HexDecode(data string) (int64, error) {
+func HexDecode(data string) (uint64, error) {
   cs, p, pe := 0, 0, len(data)
-  var val int64
+  var val uint64
   %%{
     hex_alpha = [a-fA-F];
 
-    action add_digit { val = val * 16 + (int64(fc) - '0') }
+    action add_digit { val = val * 16 + (uint64(fc) - '0') }
     action add_char { val = val * 16 + decode(fc) }
 
     main := '0x'? ( digit @add_digit | hex_alpha @add_char ) + '\n'?;

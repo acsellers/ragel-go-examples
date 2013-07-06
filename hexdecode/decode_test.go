@@ -19,7 +19,7 @@ func TestHex(t *testing.T) {
 
 type hexTest struct {
 	Data   string
-	Result int64
+	Result uint64
 	Errors bool
 }
 

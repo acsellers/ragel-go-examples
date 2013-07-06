@@ -1,58 +1,61 @@
+
 // line 1 "decode.rl"
 package hexdecode
 
 import (
-	"fmt"
+  "fmt"
 )
 
-func decode(c uint8) int64 {
-	switch c {
-	case 'a', 'b', 'c', 'd', 'e', 'f':
-		return int64(c - 'a' + 10)
-	case 'A', 'B', 'C', 'D', 'E', 'F':
-		return int64(c - 'A' + 10)
-	}
-	return 0
+func decode(c uint8) uint64 {
+  switch c {
+  case 'a', 'b', 'c', 'd', 'e', 'f':
+    return uint64(c - 'a' + 10)
+  case 'A', 'B', 'C', 'D', 'E', 'F':
+    return uint64(c - 'A' + 10)
+  }
+  return 0
 }
 
-// line 22 "decode.go"
+
+// line 21 "decode.go"
 const hexd_start int = 1
 const hexd_first_final int = 3
 const hexd_error int = 0
 
 const hexd_en_main int = 1
 
-// line 21 "decode.rl"
 
-func HexDecode(data string) (int64, error) {
-	cs, p, pe := 0, 0, len(data)
-	var val int64
+// line 20 "decode.rl"
 
-	// line 36 "decode.go"
+func HexDecode(data string) (uint64, error) {
+  cs, p, pe := 0, 0, len(data)
+  var val uint64
+  
+// line 35 "decode.go"
 	{
-		cs = hexd_start
+	cs = hexd_start
 	}
 
-	// line 41 "decode.go"
+// line 40 "decode.go"
 	{
-		if p == pe {
-			goto _test_eof
-		}
-		switch cs {
-		case 1:
-			goto st_case_1
-		case 0:
-			goto st_case_0
-		case 3:
-			goto st_case_3
-		case 4:
-			goto st_case_4
-		case 5:
-			goto st_case_5
-		case 2:
-			goto st_case_2
-		}
-		goto st_out
+	if p == pe {
+		goto _test_eof
+	}
+	switch cs {
+	case 1:
+		goto st_case_1
+	case 0:
+		goto st_case_0
+	case 3:
+		goto st_case_3
+	case 4:
+		goto st_case_4
+	case 5:
+		goto st_case_5
+	case 2:
+		goto st_case_2
+	}
+	goto st_out
 	st_case_1:
 		if data[p] == 48 {
 			goto tr0
@@ -70,21 +73,21 @@ func HexDecode(data string) (int64, error) {
 			goto tr3
 		}
 		goto st0
-	st_case_0:
+st_case_0:
 	st0:
 		cs = 0
 		goto _out
-	tr0:
-		// line 28 "decode.rl"
+tr0:
+// line 27 "decode.rl"
 
-		val = val*16 + (int64(data[p]) - '0')
-		goto st3
+ val = val * 16 + (uint64(data[p]) - '0') 
+	goto st3
 	st3:
 		if p++; p == pe {
 			goto _test_eof3
 		}
 	st_case_3:
-		// line 92 "decode.go"
+// line 91 "decode.go"
 		switch data[p] {
 		case 10:
 			goto st4
@@ -110,22 +113,22 @@ func HexDecode(data string) (int64, error) {
 		}
 	st_case_4:
 		goto st0
-	tr2:
-		// line 28 "decode.rl"
+tr2:
+// line 27 "decode.rl"
 
-		val = val*16 + (int64(data[p]) - '0')
-		goto st5
-	tr3:
-		// line 29 "decode.rl"
+ val = val * 16 + (uint64(data[p]) - '0') 
+	goto st5
+tr3:
+// line 28 "decode.rl"
 
-		val = val*16 + decode(data[p])
-		goto st5
+ val = val * 16 + decode(data[p]) 
+	goto st5
 	st5:
 		if p++; p == pe {
 			goto _test_eof5
 		}
 	st_case_5:
-		// line 133 "decode.go"
+// line 132 "decode.go"
 		if data[p] == 10 {
 			goto st4
 		}
@@ -161,32 +164,20 @@ func HexDecode(data string) (int64, error) {
 		}
 		goto st0
 	st_out:
-	_test_eof3:
-		cs = 3
-		goto _test_eof
-	_test_eof4:
-		cs = 4
-		goto _test_eof
-	_test_eof5:
-		cs = 5
-		goto _test_eof
-	_test_eof2:
-		cs = 2
-		goto _test_eof
+	_test_eof3: cs = 3; goto _test_eof
+	_test_eof4: cs = 4; goto _test_eof
+	_test_eof5: cs = 5; goto _test_eof
+	_test_eof2: cs = 2; goto _test_eof
 
-	_test_eof:
-		{
-		}
-	_out:
-		{
-		}
+	_test_eof: {}
+	_out: {}
 	}
 
-	// line 34 "decode.rl"
+// line 33 "decode.rl"
 
-	if cs < hexd_first_final {
-		return 0, fmt.Errorf("hexdecode parse error: %s", data)
-	}
+  if cs < hexd_first_final {
+    return 0, fmt.Errorf("hexdecode parse error: %s", data)
+  }
 
-	return val, nil
+  return val, nil
 }
